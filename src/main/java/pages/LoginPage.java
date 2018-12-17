@@ -7,13 +7,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
+import static org.testng.Assert.assertTrue;
 
 
 public class LoginPage extends AbstractPage {
@@ -52,7 +52,7 @@ public class LoginPage extends AbstractPage {
     @FindBy(xpath = "//*[@class = 'BltHke nH oy8Mbf']//*[@class='bog'][1]")
     public WebElement pressThemeText;
 
-    @FindBy(xpath = "//span[@class = 'y6']//*[@class ='bog'][1]")
+    @FindBy(xpath = "//*[@class = 'zA yO']//*[@class = 'y6']")
     public WebElement themeSendText;
 
 
@@ -60,16 +60,16 @@ public class LoginPage extends AbstractPage {
     public WebElement pressSendBtn;
 
 
-    @FindBy(xpath = "//*[contains (@href, '#sent')]")
+    @FindBy(xpath = "//*[contains(@href, '#sent')]")
     public WebElement sendingMesg;
 
-    @FindBy(xpath = "//span[text = 'aleksandr.barov13@gmail.com']")
-    public WebElement addrSends;
+    @FindBy(xpath = "//span[text() = 'Hello']")
+    public WebElement adrSends;
 
-    @FindBy(xpath = "//span [@email = 'aleksandr.barov13@gmail.com']")
+    @FindBy(xpath = "//span[@email = 'aleksandr.b")
     public WebElement adrMes;
 
-    @FindBy(xpath = "//*[@aria-label = 'Тема']")
+    @FindBy(xpath = "//span[text() = 'Тest text']")
     public WebElement themeMes;
 
 
@@ -130,7 +130,6 @@ public class LoginPage extends AbstractPage {
 
     public void closeAndSave() {
        if (true) {
-            waiterVision(massageisSaved);
             closeAndSave.click();
            System.out.println("Message is save");
         } else {
@@ -140,7 +139,7 @@ public class LoginPage extends AbstractPage {
 
     public void pressDraft() {
         if(true) {
-            waiterClicker(pressDraft);
+            waiterVision(pressDraft);
             pressDraft.click();
         } else  {
             System.out.println("Lost draft");
@@ -182,7 +181,7 @@ public class LoginPage extends AbstractPage {
                         }
                     });
 
-            Assert.assertTrue(waittSendingMessage.getText().equals("Письмо отправлено."));
+            assertTrue(waittSendingMessage.getText().equals("Письмо отправлено."));
             System.out.println("Message is send");
         } else {
             System.out.println("Sorry, I lost it");
@@ -200,48 +199,20 @@ public class LoginPage extends AbstractPage {
 
 
     public void themeSendMessg() {
+
         if (true){
             waiterVision(pressThemeText);
             pressThemeText.click();
+            assertTrue(adrMes.getText().equals("aleksandr.b"));
+            assertTrue(themeMes.getText().equals("Тest text"));
+            assertTrue(adrSends.getText().equals("Hello"));
         } else {
             System.out.println("It's not that message");
-        }
-    }
+
+    }}
 
 
 
-    //    public void rightOrNotTheme () {
-//        try {
-//            waiterClicker(themeMes);
-//            WebElement waitTheme = (new WebDriverWait(driver, 10))
-//                    .until(elementToBeClickable(themeMes));
-//            String mes = new String(themeMes.getText());
-//            Assert.assertEquals(mes,("Test text"));
-//        }catch (NoSuchElementException e){
-//            System.out.println("It's not that message");
-//            e.printStackTrace();
-////            wait.until(ExpectedConditions.elementToBeClickable(inputTextMessage));
-////            wait.until(ExpectedConditions.elementToBeClickable(inputAdress));
-//    }}
-//
-//    public void rightOrNotAdr () {
-//        try {
-//            WebElement waitAdr = (new WebDriverWait(driver, 6))
-//                .until(elementToBeClickable(adrMes));
-//
-//
-//        }catch (NoSuchElementException e){
-//            System.out.println("It's not that message");
-//            e.printStackTrace();}}
-//
-//    public void rightOrNotText(){
-//        try {WebElement waitText = (new WebDriverWait(driver, 6))
-//                .until(elementToBeClickable(inputTextMessage));
-//
-//    }catch (NoSuchElementException e){
-//            System.out.println("It's not that message");
-//            e.printStackTrace();}
-//    }
     public LoginPage(WebDriver driver) {
         super(driver);
     }
